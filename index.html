@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jackpot de la St-Valentin</title>
+    <style>
+        body {
+            background-color: #ffeff0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            font-family: 'Arial', sans-serif;
+        }
+        .slot-machine {
+            background: #d32f2f;
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 10px 0 #8b0000;
+            border: 8px solid #ffd700;
+        }
+        .slots {
+            display: flex;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            gap: 15px;
+            font-size: 4rem;
+        }
+        .slot {
+            width: 80px;
+            text-align: center;
+        }
+        button {
+            margin-top: 30px;
+            padding: 15px 40px;
+            font-size: 1.5rem;
+            background: #ffd700;
+            color: #d32f2f;
+            border: none;
+            border-radius: 50px;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 5px 0 #b8860b;
+        }
+        button:active { transform: translateY(5px); box-shadow: none; }
+        #message {
+            display: none;
+            margin-top: 25px;
+            text-align: center;
+            color: #d32f2f;
+        }
+    </style>
+</head>
+<body>
+
+    <h1 style="color: #d32f2f; text-align: center;">Tente ta chance ! 🎰</h1>
+
+    <div class="slot-machine">
+        <div class="slots">
+            <div id="slot1" class="slot">❓</div>
+            <div id="slot2" class="slot">❓</div>
+            <div id="slot3" class="slot">❓</div>
+        </div>
+    </div>
+
+    <button id="spinBtn">JOUER !</button>
+
+    <div id="message">
+        <h2>JACKPOT ! ❤️</h2>
+        <p>Tu as gagné un Valentin (Moi) !</p>
+        <p><strong>Veux-tu être ma Valentine ?</strong></p>
+        <button onclick="alert('Yay ! On va fêter ça avec notre Vision Board ! 😍')">OUI !</button>
+    </div>
+
+    <script>
+        const symbols = ['⚽', '🍕', '🎮', '✈️', '🍰', '❤️'];
+        const spinBtn = document.getElementById('spinBtn');
+        const slots = [document.getElementById('slot1'), document.getElementById('slot2'), document.getElementById('slot3')];
+        const message = document.getElementById('message');
+
+        spinBtn.onclick = function() {
+            spinBtn.style.display = 'none'; // On cache le bouton après le clic
+            
+            let count = 0;
+            const interval = setInterval(() => {
+                slots.forEach(slot => {
+                    slot.innerText = symbols[Math.floor(Math.random() * symbols.length)];
+                });
+                count++;
+
+                if (count > 20) { // Après un court instant, on force le résultat
+                    clearInterval(interval);
+                    slots[0].innerText = '❤️';
+                    slots[1].innerText = '❤️';
+                    slots[2].innerText = '❤️';
+                    message.style.display = 'block';
+                }
+            }, 100);
+        };
+    </script>
+</body>
+</html>
